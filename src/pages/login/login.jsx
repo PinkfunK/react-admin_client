@@ -1,27 +1,34 @@
 import React, { Component } from 'react'
 import './login.less'
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 /* 登陆的路由 */
 export default class Login extends Component {
-  constructor (props){
+  constructor(props) {
     super(props);
-    this.state={
-      userName:'',
-      passWord:'',
+    this.state = {
+      userName: '',
+      passWord: '',
     }
   }
- 
+
   // 点击登录按钮
   submit() {
-    var userName = this.state.userName
-    console.log(userName);
+    const {userName,passWord} = this.state
+    if(userName!==''&&passWord!==''){
+      window.location.href = 'http://localhost:3000/';
+    }
   }
 
   render() {
     const onFinish = (values) => {
-      console.log('Success:', values);
+      console.log('Success:', values, values.username);
+       this.setState({
+         userName:values.username,
+         passWord:values.password
+       })
+       
     };
 
     return (
@@ -46,10 +53,10 @@ export default class Login extends Component {
               >
                 <Input
                   prefix={<UserOutlined className="site-form-item-icon" />}
-                  style={{ color: 'rgba(200,200,200,0.5)',backgroundColor:'#00000000' }}
+                  style={{ color: 'rgba(200,200,200,0.5)', backgroundColor: '#00000000' }}
                   placeholder="Username"
                   autoComplete="off"
-                   />
+                />
               </Form.Item>
               <Form.Item
                 name="password"
@@ -59,8 +66,8 @@ export default class Login extends Component {
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   type="password"
                   placeholder="Password"
-                  style={{ color: 'rgba(200,200,200,0.5)',backgroundColor:'#00000000' }}
-                  
+                  style={{ color: 'rgba(200,200,200,0.5)', backgroundColor: '#00000000' }}
+
                 />
               </Form.Item>
               <Form.Item>
